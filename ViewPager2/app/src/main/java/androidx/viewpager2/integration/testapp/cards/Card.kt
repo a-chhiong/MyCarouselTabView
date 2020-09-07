@@ -69,9 +69,9 @@ class Card private constructor(val suit: String, val value: String) {
 
         fun getCarouselPosition(position: Int): Int {
             var newPosition: Int = 0
-            if (position < REDUNDANTS) {
+            if (position < (REDUNDANTS)) {
                 newPosition = DECK.size - (REDUNDANTS - position);
-            } else if (position >= DECK.size + REDUNDANTS) {
+            } else if (position >= (DECK.size + REDUNDANTS)) {
                 newPosition = position - (DECK.size + REDUNDANTS)
             } else {
                 newPosition = position - REDUNDANTS
@@ -81,26 +81,14 @@ class Card private constructor(val suit: String, val value: String) {
         }
 
         fun getCarouselOffset(position: Int): Int {
-            var newPosition: Int = 0
-            if (position < REDUNDANTS) {
-                newPosition = (REDUNDANTS + DECK.size) - (REDUNDANTS - position) + 1;
-            } else if (position >= DECK.size + REDUNDANTS) {
+            var newPosition: Int = -1   // meaning there is no need for offset
+            if (position < (REDUNDANTS)) {
+                newPosition = (REDUNDANTS + DECK.size) - (REDUNDANTS - position);
+            } else if (position >= (DECK.size + REDUNDANTS)) {
                 newPosition = REDUNDANTS + (position - (DECK.size + REDUNDANTS))
-            } else {
-                newPosition = position
             }
 
             return newPosition
-        }
-
-        fun isCarouselOffset(position: Int): Boolean {
-            if (position < (REDUNDANTS)) {
-                return true
-            } else if (position >= DECK.size + REDUNDANTS) {
-                return true
-            } else {
-                return false
-            }
         }
 
         fun getCarouselInitial(): Int {

@@ -17,6 +17,7 @@
 package androidx.viewpager2.integration.testapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.viewpager2.integration.testapp.cards.Card
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -38,12 +39,13 @@ class CardViewTabLayoutActivity : CardViewActivity() {
         }.attach()
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            var iCurrentItem: Int = -1
+
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (Card.isCarouselOffset(position) == true) {
-                    val newSelection: Int = Card.getCarouselOffset(position)
-                    viewPager.setCurrentItem(newSelection, smoothScrollCheckBox.isChecked)
-                }
+                Log.v("myCarouselTabView", "onPageSelected, position: " + position)
+                iCurrentItem = Card.getCarouselOffset(position)
+                Log.v("myCarouselTabView", "iCurrentItem = " + iCurrentItem)
             }
 
             override fun onPageScrolled(
@@ -52,13 +54,24 @@ class CardViewTabLayoutActivity : CardViewActivity() {
                 positionOffsetPixels: Int
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                if (Card.isCarouselOffset(position) == true) {
-                    val newSelection: Int = Card.getCarouselOffset(position)
-                    viewPager.setCurrentItem(newSelection, smoothScrollCheckBox.isChecked)
+                Log.v("myCarouselTabView", "onPageScrolled: position: " + position + ", positionOffset: " + positionOffset + ", positionOffsetPixels: " + positionOffsetPixels)
+                iCurrentItem = Card.getCarouselOffset(position)
+                Log.v("myCarouselTabView", "iCurrentItem = " + iCurrentItem)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+                Log.v("myCarouselTabView", "onPageScrollStateChanged, state = " + state)
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    if (iCurrentItem != -1) {
+                        viewPager.setCurrentItem(iCurrentItem, false)
+                        Log.v("myCarouselTabView", "setCurrentItem(" + iCurrentItem + ")")
+                        iCurrentItem = -1   // avoiding of repeated setCurrentItem()
+                    }
                 }
             }
         })
 
-        viewPager.setCurrentItem(Card.getCarouselInitial(), smoothScrollCheckBox.isChecked)
+        viewPager.setCurrentItem(Card.getCarouselInitial(), false)
     }
 }
