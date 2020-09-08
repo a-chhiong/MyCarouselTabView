@@ -51,7 +51,7 @@ class Card private constructor(val suit: String, val value: String) {
         val DECK = SUITS.flatMap { suit ->
             VALUES.map { value -> Card(suit, value) }
         }
-        private const val REDUNDANTS = 5 // manually changeable, odd-number only
+        const val REDUNDANTS = 5 // manually changeable, odd-number only
 
         fun List<Card>.find(value: String, suit: String): Card? {
             return find { it.value == value && it.suit == suit }

@@ -26,7 +26,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class CardViewTabLayoutActivity : CardViewActivity() {
 
     private lateinit var tabLayout: TabLayout
-
+    private var iCurrentItem: Int = -1
     override val layoutId: Int = R.layout.activity_tablayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,6 @@ class CardViewTabLayoutActivity : CardViewActivity() {
         }.attach()
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            var iCurrentItem: Int = -1
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -63,15 +62,26 @@ class CardViewTabLayoutActivity : CardViewActivity() {
                 super.onPageScrollStateChanged(state)
                 Log.v("myCarouselTabView", "onPageScrollStateChanged, state = " + state)
                 if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                    if (iCurrentItem != -1) {
-                        viewPager.setCurrentItem(iCurrentItem, false)
-                        Log.v("myCarouselTabView", "setCurrentItem(" + iCurrentItem + ")")
-                        iCurrentItem = -1   // avoiding of repeated setCurrentItem()
-                    }
+                    updateCurrentItem()
                 }
             }
         })
 
         viewPager.setCurrentItem(Card.getCarouselInitial(), false)
+    }
+
+    override fun onClickGotoPage(position: Int, smoothScroll: Boolean) {
+        Log.v("myCarouselTabView", "onClickGotoPage, position: " + position)
+        iCurrentItem = position + Card.REDUNDANTS
+        Log.v("myCarouselTabView", "iCurrentItem = " + iCurrentItem)
+        updateCurrentItem()
+    }
+
+    private fun updateCurrentItem() {
+        if (iCurrentItem != -1) {
+            viewPager.setCurrentItem(iCurrentItem, false)
+            Log.v("myCarouselTabView", "setCurrentItem(" + iCurrentItem + ")")
+            iCurrentItem = -1   // avoiding of repeated setCurrentItem()
+        }
     }
 }

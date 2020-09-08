@@ -17,6 +17,7 @@
 package androidx.viewpager2.integration.testapp
 
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.integration.testapp.cards.Card
@@ -76,14 +77,15 @@ abstract class BaseCardActivity : FragmentActivity() {
 
         UserInputController(viewPager, findViewById(R.id.disable_user_input_checkbox)).setUp()
         OrientationController(viewPager, findViewById(R.id.orientation_spinner)).setUp()
-        //cardSelector.adapter = createCardAdapter()
+        cardSelector.adapter = createCardAdapter()
 
         viewPager.setPageTransformer(mAnimator)
 
         gotoPage.setOnClickListener {
-            //val card = cardSelector.selectedItemPosition
-            //val smoothScroll = smoothScrollCheckBox.isChecked
+            val card = cardSelector.selectedItemPosition
+            val smoothScroll = smoothScrollCheckBox.isChecked
             //viewPager.setCurrentItem(card, smoothScroll)
+            onClickGotoPage(card, smoothScroll)
         }
 
         rotateCheckBox.setOnClickListener { viewPager.requestTransform() }
@@ -95,5 +97,9 @@ abstract class BaseCardActivity : FragmentActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Card.DECK)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         return adapter
+    }
+
+    open fun onClickGotoPage(position: Int, smoothScroll: Boolean) {
+
     }
 }
