@@ -99,7 +99,7 @@ abstract class BaseCardActivity : FragmentActivity() {
         return adapter
     }
 
-    open fun onClickGotoPage(position: Int, smoothScroll: Boolean) {
+    protected open fun onClickGotoPage(position: Int, smoothScroll: Boolean) {
 
     }
 }

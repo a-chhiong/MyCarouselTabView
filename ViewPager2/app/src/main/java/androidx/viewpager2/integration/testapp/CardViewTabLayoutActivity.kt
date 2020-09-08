@@ -19,14 +19,16 @@ package androidx.viewpager2.integration.testapp
 import android.os.Bundle
 import android.util.Log
 import androidx.viewpager2.integration.testapp.cards.Card
+import androidx.viewpager2.integration.testapp.cards.CardViewAdapter
+import androidx.viewpager2.integration.testapp.cards.CarouselCardViewAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class CardViewTabLayoutActivity : CardViewActivity() {
+class CardViewTabLayoutActivity : CarouselCardViewActivity() {
 
     private lateinit var tabLayout: TabLayout
-    private var iCurrentItem: Int = -1
+
     override val layoutId: Int = R.layout.activity_tablayout
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -17,7 +17,10 @@
 package androidx.viewpager2.integration.testapp
 
 import android.os.Bundle
+import android.util.Log
+import androidx.viewpager2.integration.testapp.cards.Card
 import androidx.viewpager2.integration.testapp.cards.CardViewAdapter
+import androidx.viewpager2.integration.testapp.cards.CarouselCardViewAdapter
 import androidx.viewpager2.widget.ViewPager2
 
 /**
@@ -26,8 +29,23 @@ import androidx.viewpager2.widget.ViewPager2
  * @see CardFragmentActivity for an example of using {@link ViewPager2} with Fragments.
  */
 open class CardViewActivity : BaseCardActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewPager.adapter = CardViewAdapter()
+    }
+
+    override fun onClickGotoPage(position: Int, smoothScroll: Boolean) {
+        viewPager.setCurrentItem(position, smoothScroll)
+    }
+}
+
+open class CarouselCardViewActivity : BaseCardActivity() {
+
+    protected var iCurrentItem: Int = -1
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewPager.adapter = CarouselCardViewAdapter()
     }
 }

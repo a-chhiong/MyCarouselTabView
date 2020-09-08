@@ -70,4 +70,9 @@ class CardFragmentActivity : BaseCardActivity() {
             }
         }
     }
+
+    override fun onClickGotoPage(position: Int, smoothScroll: Boolean) {
+        super.onClickGotoPage(position, smoothScroll)
+        viewPager.setCurrentItem(position, smoothScroll)
+    }
 }
