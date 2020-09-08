@@ -43,7 +43,7 @@ class BrowseActivity : ListActivity() {
                 "intent" to activityToIntent(CardViewActivity::class.java.name)))
         myData.add(mapOf("title" to "ViewPager2 with Fragments",
                 "intent" to activityToIntent(CardFragmentActivity::class.java.name)))
-        myData.add(mapOf("title" to "ViewPager2 with a Carousel TabLayout (Views)",
+        myData.add(mapOf("title" to "ViewPager2 with a Carousel TabLayout",
             "intent" to activityToIntent(CardViewTabLayoutActivity::class.java.name)))
         myData.add(mapOf("title" to "ViewPager2 with a Mutable Collection (Views)",
                 "intent" to activityToIntent(MutableCollectionViewActivity::class.java.name)))
@@ -57,6 +57,8 @@ class BrowseActivity : ListActivity() {
                 "intent" to activityToIntent(PreviewPagesActivity::class.java.name)))
         myData.add(mapOf("title" to "ViewPager2 with Nested RecyclerViews",
                 "intent" to activityToIntent(ParallelNestedScrollingActivity::class.java.name)))
+        myData.add(mapOf("title" to "ViewPager2 with a Carousel TabLayout inside of RecycleView",
+                "intent" to activityToIntent(ParallelCardViewTabLayoutActivity::class.java.name)))
 
         return myData
     }
