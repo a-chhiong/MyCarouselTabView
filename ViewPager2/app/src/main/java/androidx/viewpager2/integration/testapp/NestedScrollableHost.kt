@@ -18,6 +18,7 @@ package androidx.viewpager2.integration.testapp
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
@@ -67,6 +68,7 @@ class NestedScrollableHost : FrameLayout {
     }
 
     override fun onInterceptTouchEvent(e: MotionEvent): Boolean {
+        Log.v("NestedScrollableHost", "onInterceptTouchEvent, motion event: " + e)
         handleInterceptTouchEvent(e)
         return super.onInterceptTouchEvent(e)
     }

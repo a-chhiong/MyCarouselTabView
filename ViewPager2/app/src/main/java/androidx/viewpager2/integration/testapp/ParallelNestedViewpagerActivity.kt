@@ -21,40 +21,35 @@ import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.integration.testapp.cards.Card
 import androidx.viewpager2.integration.testapp.cards.CarouselCardViewAdapter
 import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class ParallelCardViewTabLayoutActivity : Activity() {
+
+class ParallelNestedViewpagerActivity : Activity() {
+
+    private lateinit var myViewPager: ViewPager2
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewPager = ViewPager2(this).apply {
+        myViewPager = ViewPager2(this).apply {
             layoutParams = matchParent()
-            orientation = ORIENTATION_HORIZONTAL
-            adapter = VpAdapter()
-            isNestedScrollingEnabled = true
-            isHorizontalScrollBarEnabled = true
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            adapter = MyAdapter()
         }
-        setContentView(viewPager)
+        setContentView(myViewPager)
     }
 
-    class VpAdapter : RecyclerView.Adapter<VpAdapter.ViewHolder>() {
+    class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
         override fun getItemCount(): Int {
             return 4
         }
@@ -62,7 +57,7 @@ class ParallelCardViewTabLayoutActivity : Activity() {
         @SuppressLint("ResourceType")
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val root = inflater.inflate(R.layout.item_nested_carousel_tab, parent, false)
+            val root = inflater.inflate(R.layout.item_nested_viewpager2, parent, false)
             return ViewHolder(root).apply {
                 init()
             }
@@ -82,6 +77,7 @@ class ParallelCardViewTabLayoutActivity : Activity() {
             val viewPager: ViewPager2 = itemView.findViewById(R.id.view_pager)
 
             fun init(){
+
                 viewPager.adapter = CarouselCardViewAdapter()
 
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -104,7 +100,10 @@ class ParallelCardViewTabLayoutActivity : Activity() {
                         positionOffsetPixels: Int
                     ) {
                         super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                        Log.v("myCarouselTabView", "onPageScrolled: position: " + position + ", positionOffset: " + positionOffset + ", positionOffsetPixels: " + positionOffsetPixels)
+                        Log.v(
+                            "myCarouselTabView",
+                            "onPageScrolled: position: " + position + ", positionOffset: " + positionOffset + ", positionOffsetPixels: " + positionOffsetPixels
+                        )
                         iCurrentItem = Card.getCarouselOffset(position)
                         Log.v("myCarouselTabView", "iCurrentItem = " + iCurrentItem)
                     }

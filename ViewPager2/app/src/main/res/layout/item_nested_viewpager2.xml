@@ -43,24 +43,26 @@
         android:textStyle="bold"
         android:gravity="center"/>
 
-    <LinearLayout
+    <androidx.viewpager2.integration.testapp.NestedScrollableHost
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:background="#FFFFFF">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable" />
+    </androidx.viewpager2.integration.testapp.NestedScrollableHost>
+
+    <androidx.viewpager2.integration.testapp.NestedScrollableHost
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"/>
 
-    </LinearLayout>
+    </androidx.viewpager2.integration.testapp.NestedScrollableHost>
 
 </LinearLayout>

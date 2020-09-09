@@ -57,8 +57,8 @@ class BrowseActivity : ListActivity() {
                 "intent" to activityToIntent(PreviewPagesActivity::class.java.name)))
         myData.add(mapOf("title" to "ViewPager2 with Nested RecyclerViews",
                 "intent" to activityToIntent(ParallelNestedScrollingActivity::class.java.name)))
-        myData.add(mapOf("title" to "ViewPager2 with a Carousel TabLayout inside of RecycleView",
-                "intent" to activityToIntent(ParallelCardViewTabLayoutActivity::class.java.name)))
+        myData.add(mapOf("title" to "ViewPager2 with Nested ViewPager2",
+                "intent" to activityToIntent(ParallelNestedViewpagerActivity::class.java.name)))
 
         return myData
     }
