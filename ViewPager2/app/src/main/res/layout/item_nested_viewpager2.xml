@@ -51,7 +51,10 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabBackground="@drawable/tab_color"
+            app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable" />
+
     </androidx.viewpager2.integration.testapp.NestedScrollableHost>
 
     <androidx.viewpager2.integration.testapp.NestedScrollableHost
